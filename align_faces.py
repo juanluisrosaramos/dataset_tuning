@@ -23,7 +23,7 @@ args = vars(ap.parse_args())
 detector = dlib.get_frontal_face_detector()
 predictor = dlib.shape_predictor(args["shape_predictor"])
 # 0.25 is the desired zoom 0.25 is the default
-fa = FaceAligner(predictor, desiredLeftEye=(0.25, 0.25),desiredFaceWidth=256)
+fa = FaceAligner(predictor, desiredLeftEye=(0.25, 0.25),desiredFaceWidth=112)
 
 # load the input image, resize it, and convert it to grayscale
 image = cv2.imread(args["image"])
@@ -38,11 +38,11 @@ for rect in rects:
 	# using facial landmarks
 	(x, y, w, h) = rect_to_bb(rect)
 	faceAligned = fa.align(image, gray, rect)
-
+	#faceAligned = cv2.resize(faceAligned, (224, 224))
 	import uuid
 	f = str(uuid.uuid4())
 	# write resulting image
-	cv2.imwrite("./" + f + ".png", faceAligned)
+	cv2.imwrite("/home/monete/monete@gmail.com/studying/IA/thesis/deeplearning/dataset/fer2013/output/7-surprise/" + f + ".png", faceAligned)
 
 	# display the output images
 	#cv2.imshow("Aligned", faceAligned)
